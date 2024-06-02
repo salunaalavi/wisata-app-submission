@@ -1,0 +1,11 @@
+import { script } from '#color-mode-options'
+
+export default defineNitroPlugin((nitroApp) => {
+  nitroApp.hooks.hook('render:html', (htmlContext) => {
+    htmlContext.head.push(`<script>${script}</script>`)
+  })
+})
+
+/**
+ * Currently bugged according to https://github.com/nuxt/nuxt/issues/15088
+ */
