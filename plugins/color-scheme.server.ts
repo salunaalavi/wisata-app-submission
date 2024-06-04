@@ -8,7 +8,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const colorMode = nuxtApp.ssrContext?.islandContext
     ? ref({})
     : useState<ColorModeInstance>('color-mode', () => reactive({
-      value: "dark",
+      value: "",
       unknown: true,
     })).value
 
