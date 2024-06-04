@@ -133,9 +133,10 @@ export const useTodosStore = defineStore(STORE_NAME, () => {
 
   function setTodo() {
     try {
+      form.value.id = Date.now().toString();
       if (!validationChecker.value) throw new Error("Invalid value");
 
-      todos.value = [...todos.value, { ...form.value, id: Date.now().toString() }];
+      todos.value = [...todos.value, form.value];
       setState(todos.value);
       resetForm();
     } catch (err) {

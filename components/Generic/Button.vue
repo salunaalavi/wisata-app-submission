@@ -16,7 +16,7 @@ defineProps({
 @import "../../assets/scss/libs/_mixins";
 
 button {
-  padding: $spacer-1 $spacer-2;
+  padding: $spacer-2 $spacer-2;
   border-radius: $spacer-1;
   transition: 0.5s;
   font-size: calc(12px + 0.390625vw);
