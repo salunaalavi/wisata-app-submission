@@ -48,52 +48,62 @@ export const useTodosStore = defineStore(STORE_NAME, () => {
     () => todos.value,
     (val) => {
       todoList.value = val;
+      doSort(sort.value);
+      doFilter(filter.value);
     }
   );
+
+  const doSort = (val: typeof sort.value) => {
+    switch (val) {
+      case "title": {
+        todoList.value = todoList.value.sort((a, b) =>
+          (a?.title || "").localeCompare(b?.title || "")
+        );
+        break;
+      }
+      case "date": {
+        todoList.value = todoList.value.sort((a, b) =>
+          (a?.date || "").localeCompare(b?.date || "")
+        );
+        break;
+      }
+      default: {
+        todoList.value = todoList.value.sort((a, b) =>
+          (a?.title || "").localeCompare(b?.title || "")
+        );
+        break;
+      }
+    }
+  }
+
+  const doFilter = (val: typeof filter.value) => {
+    switch (val) {
+      case "completed": {
+        todoList.value = todos.value.filter((todo) => !!todo?.completed);
+        break;
+      }
+      case "uncompleted": {
+        todoList.value = todos.value.filter((todo) => !todo?.completed);
+        break;
+      }
+      default: {
+        todoList.value = todos.value;
+        break;
+      }
+    }
+  }
 
   watch(
     () => sort.value,
     (val) => {
-      switch (val) {
-        case "title": {
-          todoList.value = todoList.value.sort((a, b) =>
-            (a?.title || "").localeCompare(b?.title || "")
-          );
-          break;
-        }
-        case "date": {
-          todoList.value = todoList.value.sort((a, b) =>
-            (a?.date || "").localeCompare(b?.date || "")
-          );
-          break;
-        }
-        default: {
-          todoList.value = todoList.value.sort((a, b) =>
-            (a?.title || "").localeCompare(b?.title || "")
-          );
-          break;
-        }
-      }
+      doSort(val);
     }
   );
 
   watch(
     () => filter.value,
     (val) => {
-      switch (val) {
-        case "completed": {
-          todoList.value = todos.value.filter((todo) => !!todo?.completed);
-          break;
-        }
-        case "uncompleted": {
-          todoList.value = todos.value.filter((todo) => !todo?.completed);
-          break;
-        }
-        default: {
-          todoList.value = todos.value;
-          break;
-        }
-      }
+      doFilter(val);
     }
   );
 
