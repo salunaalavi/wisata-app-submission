@@ -4,6 +4,7 @@ type TodoType = {
   title: string,
   description?: string | null,
   date?: string | null,
+  completed?: boolean | null,
 }
 
 const getDefaultState = () => [] as TodoType[];
@@ -25,6 +26,7 @@ const setState = (state: TodoType[]) => {
 export const useTodosStore = defineStore(STORE_NAME, () => {
   const todos = ref<TodoType[]>([]);
   const { $error_message } = useNuxtApp();
+  const { filter, sort } = storeToRefs(useLayoutsStore());
   const errorStore = useErrorStore();
 
   const form = ref<TodoType>({
@@ -38,6 +40,65 @@ export const useTodosStore = defineStore(STORE_NAME, () => {
 
   const validationForm = reactive({
     title: false,
+  });
+
+  const todoList = ref(todos.value);
+
+  watch(
+    () => todos.value,
+    (val) => {
+      todoList.value = val;
+    }
+  );
+
+  watch(
+    () => sort.value,
+    (val) => {
+      switch (val) {
+        case "title": {
+          todoList.value = todoList.value.sort((a, b) =>
+            (a?.title || "").localeCompare(b?.title || "")
+          );
+          break;
+        }
+        case "date": {
+          todoList.value = todoList.value.sort((a, b) =>
+            (a?.date || "").localeCompare(b?.date || "")
+          );
+          break;
+        }
+        default: {
+          todoList.value = todoList.value.sort((a, b) =>
+            (a?.title || "").localeCompare(b?.title || "")
+          );
+          break;
+        }
+      }
+    }
+  );
+
+  watch(
+    () => filter.value,
+    (val) => {
+      switch (val) {
+        case "completed": {
+          todoList.value = todos.value.filter((todo) => !!todo?.completed);
+          break;
+        }
+        case "uncompleted": {
+          todoList.value = todos.value.filter((todo) => !todo?.completed);
+          break;
+        }
+        default: {
+          todoList.value = todos.value;
+          break;
+        }
+      }
+    }
+  );
+
+  onMounted(() => {
+    todoList.value = todos.value;
   });
 
   const validationChecker = computed(() => {
@@ -107,6 +168,7 @@ export const useTodosStore = defineStore(STORE_NAME, () => {
   })
 
   return {
+    todoList,
     todos,
     form,
     error,

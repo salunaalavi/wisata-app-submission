@@ -13,7 +13,7 @@
                   <SelectValue placeholder="Sort" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Sort</SelectItem>
+                  <SelectItem value="null">No Sort</SelectItem>
                   <SelectItem value="title">Title</SelectItem>
                   <SelectItem value="date">Date</SelectItem>
                 </SelectContent>
@@ -25,7 +25,7 @@
                   <SelectValue placeholder="Filter" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Filter</SelectItem>
+                  <SelectItem value="null">No Filter</SelectItem>
                   <SelectItem value="completed">Completed</SelectItem>
                   <SelectItem value="uncompleted">Uncompleted</SelectItem>
                 </SelectContent>
