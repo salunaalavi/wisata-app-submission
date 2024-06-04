@@ -6,14 +6,14 @@
           class="cursor-pointer w-[1rem] h-[1rem] custom-radio border-2"
           type="checkbox"
           :checked="todo.completed"
-          @change="handleRadioChange(todo.completed)"
+          @change="handleRadioChange(todo.completed, todo.id)"
         />
       </div>
       <div class="flex flex-col">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <span @click.prevent="handleOpenEditor">
+              <span @click.prevent="handleOpenEditor(todo.id)">
                 {{ todo.title }}
               </span>
             </TooltipTrigger>
@@ -32,7 +32,7 @@
           {{ todo.date }}
         </span>
       </div>
-      <button @click="deleteTodo" class="del">x</button>
+      <button @click="deleteTodo(todo.id)" class="del">x</button>
     </div>
   </div>
 </template>
@@ -59,20 +59,23 @@ const props = defineProps({
 const { todos, form } = storeToRefs(useTodosStore());
 const { openEditor, actionType } = storeToRefs(useLayoutsStore());
 
-const handleOpenEditor = () => {
+const handleOpenEditor = (id) => {
   actionType.value = "update";
-  form.value = todos.value[props.index];
+  const index = todos.value.findIndex((todo) => todo.id == id);
+  form.value = todos.value[index];
   openEditor.value = true;
 };
 
-function deleteTodo() {
-  todos.value = todos.value.filter((_, idx) => idx !== props.index);
+function deleteTodo(id) {
+  const index = todos.value.findIndex((todo) => todo.id == id);
+  todos.value = todos.value.filter((_, idx) => idx !== index);
   localStorage.setItem("todos", JSON.stringify(todos.value));
 }
 
-const handleRadioChange = (checked) => {
-  todos.value = todos.value.map((todo, id) => {
-    if (props.index == id) {
+const handleRadioChange = (checked, id) => {
+  const index = todos.value.findIndex((todo) => todo.id == id);
+  todos.value = todos.value.map((todo, idx) => {
+    if (index == idx) {
       return {
         ...todo,
         completed: !checked,

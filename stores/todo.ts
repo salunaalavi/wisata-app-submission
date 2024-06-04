@@ -1,6 +1,7 @@
 const STORE_NAME = "todos";
 
 type TodoType = {
+  id: string,
   title: string,
   description?: string | null,
   date?: string | null,
@@ -30,12 +31,14 @@ export const useTodosStore = defineStore(STORE_NAME, () => {
   const errorStore = useErrorStore();
 
   const form = ref<TodoType>({
+    id: "",
     title: "",
     description: null,
   });
 
   const error = ref<TodoType>({
     title: "",
+    id: "",
   });
 
   const validationForm = reactive({
@@ -115,7 +118,7 @@ export const useTodosStore = defineStore(STORE_NAME, () => {
     Object.keys(form.value).map((key: any) => {
       if (
         (form.value[key as keyof typeof form.value] === "" || form.value[key as keyof typeof form.value] === null || !form.value[key as keyof typeof form.value]) &&
-        (key == "title")
+        (key == "title" || key == "id")
       ) {
         error.value[key as keyof typeof form.value] = $error_message.required;
         validationForm[key as keyof typeof form.value] = true;
@@ -132,7 +135,7 @@ export const useTodosStore = defineStore(STORE_NAME, () => {
     try {
       if (!validationChecker.value) throw new Error("Invalid value");
 
-      todos.value = [...todos.value, form.value]
+      todos.value = [...todos.value, { ...form.value, id: Date.now().toString() }];
       setState(todos.value);
       resetForm();
     } catch (err) {
@@ -162,11 +165,13 @@ export const useTodosStore = defineStore(STORE_NAME, () => {
 
   const resetForm = () => {
     form.value = {
+      id: "",
       title: "",
       description: null,
       date: null,
     }
     error.value = {
+      id: "",
       title: "",
     }
     errorStore.setSuccess(true);
