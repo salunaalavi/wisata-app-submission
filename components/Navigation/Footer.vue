@@ -9,7 +9,7 @@
           <ToggleGroup type="multiple" class="justify-start">
             <ToggleGroupItem :value="showDescription" aria-label="Toggle text">
               <Select v-model:model-value="sort">
-                <SelectTrigger className="w-[4rem] flex place-content-between">
+                <SelectTrigger className="w-[6rem] flex place-content-between">
                   <SelectValue placeholder="Sort" />
                 </SelectTrigger>
                 <SelectContent>
@@ -21,7 +21,7 @@
             </ToggleGroupItem>
             <ToggleGroupItem value="italic" aria-label="Toggle italic">
               <Select v-model:model-value="filter">
-                <SelectTrigger className="w-[4rem] flex place-content-between">
+                <SelectTrigger className="w-[6rem] flex place-content-between">
                   <SelectValue placeholder="Filter" />
                 </SelectTrigger>
                 <SelectContent>
