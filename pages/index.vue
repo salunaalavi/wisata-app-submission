@@ -1,6 +1,9 @@
 <template>
   <main>
-    <div v-if="!(todoList.length > 0)" class="flex w-full justify-center">
+    <div
+      v-if="!(todoList.length > 0)"
+      class="flex w-full justify-center items-center"
+    >
       <img src="@/assets/icons/todo-empty-state.svg" alt="empty" />
     </div>
     <div v-for="(todo, index) in todoList" :key="index">
@@ -16,18 +19,25 @@ const layouts = storeToRefs(useLayoutsStore());
 const todoList = ref(todos.value);
 
 watch(
+  () => todos.value,
+  (val) => {
+    todoList.value = val;
+  }
+);
+
+watch(
   () => layouts.sort.value,
   (val) => {
     switch (val) {
       case "title": {
         todoList.value = todoList.value.sort((a, b) =>
-          (a?.title || "").localeCompare((b?.title || ""))
+          (a?.title || "").localeCompare(b?.title || "")
         );
         break;
       }
       case "date": {
         todoList.value = todoList.value.sort((a, b) =>
-          (a?.date || "").localeCompare((b?.date || ""))
+          (a?.date || "").localeCompare(b?.date || "")
         );
         break;
       }
