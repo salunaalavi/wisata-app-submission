@@ -2,7 +2,7 @@
   <main>
     <div
       v-if="!(todoList.length > 0)"
-      class="flex w-full justify-center items-center"
+      class="flex w-full min-h-full justify-center items-center"
     >
       <img src="@/assets/icons/todo-empty-state.svg" alt="empty" />
     </div>
