@@ -1,20 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
-html {
-  --primary: #196b69;
-  --accent: #e69496;
-}
-html.dark-mode {
-  --primary: #000000;
-  --accent: rgb(255 255 255);
-}
-$primary: var(--primary);
-$accent: var(--accent);
-
-#__nuxt {
-  background-color: $primary !important;
-  color: $accent !important;
-}
+@import "libs/variables";
 
 * {
   font-family: "Inter", sans-serif;
@@ -36,3 +21,45 @@ $accent: var(--accent);
     }
   }
 }
+
+#__nuxt {
+  transition: 0.5s;
+  background-color: $background;
+  color: $accent;
+}
+
+h1 {
+  font-size: calc(26px + 0.390625vw);
+}
+
+h2 {
+  font-size: calc(22px + 0.390625vw);
+}
+
+h3 {
+  font-size: calc(18px + 0.390625vw);
+}
+
+h4 {
+  font-size: calc(15px + 0.390625vw);
+}
+
+h5 {
+  font-size: calc(13px + 0.390625vw);
+}
+
+p {
+  font-size: calc(11px + 0.390625vw);
+}
+
+a {
+  font-size: calc(11px + 0.390625vw);
+}
+
+label {
+  font-size: calc(11px + 0.390625vw);
+}
+
+@import "libs/mixins";
+@import "layouts/main";
+@import "transitions/bounce";

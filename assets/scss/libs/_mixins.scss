@@ -1,0 +1,16 @@
+@mixin link-primary {
+  text-decoration: underline;
+  color: $primary;
+}
+
+@mixin link-tertiary {
+  text-decoration: underline;
+  color: $tertiary;
+}
+
+
+@mixin flex-all-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

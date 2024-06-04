@@ -1,0 +1,33 @@
+html {
+  --background: #ffffff;
+  --primary: #dee4e7;
+  --secondary: #5e143a;
+  --accent: #263238;
+}
+html.dark-mode {
+  --background: #222222;
+  --primary: #263238;
+  --secondary: #3aa6b9;
+  --accent: #f9d71c;
+}
+
+$background: var(--background);
+$primary: var(--primary);
+$accent: var(--accent);
+$secondary: #3aa6b9;
+$tertiary: #eceef0;
+$neutral: #e20074;
+
+$spacer-1: calc(2px + 0.390625vw);
+$spacer-2: calc(5px + 0.390625vw);
+$spacer-3: calc(12px + 0.390625vw);
+$spacer-4: calc(24px + 0.390625vw);
+$spacer-5: calc(48px + 0.390625vw);
+$spacer-6: calc(92px + 0.390625vw);
+
+$rounded: 999999px;
+
+$light: 400;
+$regular: 500;
+$bold: 600;
+$bolder: 700;
