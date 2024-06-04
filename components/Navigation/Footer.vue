@@ -59,7 +59,7 @@ import {
 } from "@/components/ui/select";
 
 const { $useClickOutside } = useNuxtApp();
-const { openEditor } = storeToRefs(useLayoutsStore());
+const { openEditor, actionType } = storeToRefs(useLayoutsStore());
 const todos = storeToRefs(useTodosStore());
 const { sort, filter } = storeToRefs(useLayoutsStore());
 const content = ref();
@@ -78,7 +78,7 @@ const openChange = (value) => {
 };
 
 $useClickOutside(content, (e) => {
-  if (e.shiftKey) {
+  if (e.shiftKey || actionType.value === "update") {
     return;
   }
 
