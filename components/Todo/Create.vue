@@ -9,7 +9,6 @@
         placeholder="What you need to do!"
         :error-message="todos.error.title"
         :required="true"
-        :validator="/.+/g"
       />
       <GenericTextArea
         v-if="showDescription"
